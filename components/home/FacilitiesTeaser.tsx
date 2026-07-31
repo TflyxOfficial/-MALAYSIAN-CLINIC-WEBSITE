@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -15,9 +16,15 @@ if (typeof window !== "undefined") {
 // scroll-scrubbed layered parallax reveal of stylised panels. The fuller
 // R3F walkthrough lives on /facilities where the time budget justifies it.
 const panels = [
-  { label: "Consultation Suites", tone: "bg-teal-tint" },
-  { label: "Infusion Lounge", tone: "bg-bone-deep" },
-  { label: "Treatment Rooms", tone: "bg-charcoal/5" },
+  {
+    label: "Consultation Suites",
+    image: "/images/facilities/consultation-room.jpg",
+  },
+  { label: "Infusion Lounge", image: "/images/facilities/lounge.jpg" },
+  {
+    label: "Treatment Rooms",
+    image: "/images/facilities/treatment-room-1.jpg",
+  },
 ];
 
 export default function FacilitiesTeaser() {
@@ -65,9 +72,19 @@ export default function FacilitiesTeaser() {
           {panels.map((panel) => (
             <div
               key={panel.label}
-              className={`facility-panel flex h-64 flex-col justify-end rounded-2xl border border-charcoal/10 p-6 ${panel.tone}`}
+              className="facility-panel relative flex h-64 flex-col justify-end overflow-hidden rounded-2xl border border-charcoal/10 p-6"
             >
-              <span className="font-serif text-xl">{panel.label}</span>
+              <Image
+                src={panel.image}
+                alt={panel.label}
+                fill
+                sizes="(min-width: 768px) 33vw, 100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/10 to-transparent" />
+              <span className="relative font-serif text-xl text-bone">
+                {panel.label}
+              </span>
             </div>
           ))}
         </div>

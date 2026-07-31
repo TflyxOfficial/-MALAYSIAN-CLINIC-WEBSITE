@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { site } from "@/lib/data/site";
 
 export const metadata: Metadata = {
@@ -42,6 +43,17 @@ export default function AboutPage() {
         physician first. This page contains placeholder copy pending final
         client-supplied content.
       </p>
+
+      <div className="relative mt-12 h-72 w-full overflow-hidden rounded-2xl border border-charcoal/10 sm:h-96">
+        <Image
+          src="/images/brand/team-group.jpg"
+          alt={`The ${site.clinicName} clinical team`}
+          fill
+          sizes="(min-width: 768px) 900px, 100vw"
+          className="object-cover"
+          priority
+        />
+      </div>
 
       <div className="mt-16 grid gap-8 sm:grid-cols-2">
         {values.map((v) => (

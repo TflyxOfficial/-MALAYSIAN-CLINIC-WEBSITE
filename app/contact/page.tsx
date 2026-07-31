@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { site } from "@/lib/data/site";
 import BookingForm from "@/components/contact/BookingForm";
 
@@ -44,6 +45,16 @@ export default function ContactPage() {
             >
               Chat on WhatsApp ({site.whatsapp})
             </a>
+          </div>
+
+          <div className="relative h-40 w-full overflow-hidden rounded-2xl border border-charcoal/10">
+            <Image
+              src="/images/brand/exterior.jpg"
+              alt="Klinik Serenity clinic entrance"
+              fill
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              className="object-cover"
+            />
           </div>
 
           <div>
