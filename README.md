@@ -139,9 +139,13 @@ wants a smoothed feel — it is currently unused.
    GLB asset so far (see above). A matching modelled asset for the
    `/facilities` walkthrough is a natural next commission.
 3. **No global smooth-scroll library** (see ScrollSmoother note above).
-4. **Doctor and before/after "photography"** is generated (CSS
-   gradients + initials), not real or stock imagery, to keep the repo
-   dependency-free and avoid implying real patients/doctors exist.
+4. **Doctor photography is now real** (client-supplied, branded
+   headshots + in-consultation shots for all 4 doctors, in
+   `public/images/doctors/`; `DoctorAvatar` falls back to CSS-initials
+   only when a doctor record has no `photo`). **Before/after
+   "photography" remains generated** (CSS gradients), since real
+   before/after imagery requires signed patient consent per MOH
+   guidelines and none exists for this fictional clinic.
 5. **BM translation** covers site chrome + homepage only, as explicitly
    allowed by the brief.
 6. **Booking Server Action** is a stub: it validates with Zod, logs to

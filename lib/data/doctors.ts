@@ -23,6 +23,8 @@ export interface Doctor {
   qualifications: string[];
   bio: string;
   photoSeed: string;
+  photo?: string;
+  photoConsult?: string;
 }
 
 export const doctors: Doctor[] = [
@@ -35,6 +37,8 @@ export const doctors: Doctor[] = [
     qualifications: ["MBBS (Malaya)", "Dip. Aesthetic Medicine (AAAM)"],
     bio: "Dr. Amelia leads the clinical direction of Klinik Serenity, with a practice built on conservative, natural-looking outcomes and a preference for the smallest effective intervention.",
     photoSeed: "doctor-amelia",
+    photo: "/images/doctors/dr-amelia-tan.jpg",
+    photoConsult: "/images/doctors/dr-amelia-tan-consult.jpg",
   },
   {
     slug: "dr-rajan-kumaresh",
@@ -45,6 +49,8 @@ export const doctors: Doctor[] = [
     qualifications: ["MBBS (UKM)", "MAFP"],
     bio: "Dr. Rajan oversees primary and preventive care, with a particular interest in metabolic health screening and long-term wellness planning for working professionals.",
     photoSeed: "doctor-rajan",
+    photo: "/images/doctors/dr-rajan-kumaresh.jpg",
+    photoConsult: "/images/doctors/dr-rajan-kumaresh-consult.jpg",
   },
   {
     slug: "dr-siti-nurhaliza-yaakub",
@@ -55,6 +61,8 @@ export const doctors: Doctor[] = [
     qualifications: ["MBBS (UM)", "MRCP (UK)", "AdvMDerm"],
     bio: "Dr. Siti brings a specialist dermatology lens to the clinic's aesthetic and medical skin programmes, with an emphasis on evidence-based protocols over trend-driven treatments.",
     photoSeed: "doctor-siti",
+    photo: "/images/doctors/dr-siti-nurhaliza-yaakub.jpg",
+    photoConsult: "/images/doctors/dr-siti-nurhaliza-yaakub-consult.jpg",
   },
   {
     slug: "dr-marcus-lim",
@@ -65,5 +73,7 @@ export const doctors: Doctor[] = [
     qualifications: ["MBBS (Monash)", "Cert. Functional Medicine"],
     bio: "Dr. Marcus designs the clinic's wellness and longevity programmes, working closely with each patient on sleep, recovery, and nutrient optimisation.",
     photoSeed: "doctor-marcus",
+    photo: "/images/doctors/dr-marcus-lim.jpg",
+    photoConsult: "/images/doctors/dr-marcus-lim-consult.jpg",
   },
 ];

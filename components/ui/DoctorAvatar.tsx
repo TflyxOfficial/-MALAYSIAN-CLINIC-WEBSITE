@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 function hashSeed(seed: string): number {
   let hash = 0;
   for (let i = 0; i < seed.length; i += 1) {
@@ -23,11 +25,30 @@ export default function DoctorAvatar({
   seed,
   name,
   size = 72,
+  photo,
 }: {
   seed: string;
   name: string;
   size?: number;
+  photo?: string;
 }) {
+  if (photo) {
+    return (
+      <div
+        className="relative overflow-hidden rounded-full"
+        style={{ width: size, height: size }}
+      >
+        <Image
+          src={photo}
+          alt={`Portrait of ${name}`}
+          fill
+          sizes={`${size}px`}
+          className="object-cover"
+        />
+      </div>
+    );
+  }
+
   const hash = hashSeed(seed);
   const color = palette[hash % palette.length];
 

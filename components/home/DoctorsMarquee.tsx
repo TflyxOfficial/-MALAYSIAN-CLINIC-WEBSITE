@@ -58,7 +58,12 @@ export default function DoctorsMarquee() {
               onClick={() => setSelected(doctor)}
               className="w-64 flex-shrink-0 rounded-2xl border border-charcoal/10 bg-white p-6 text-left transition-shadow hover:shadow-md"
             >
-              <DoctorAvatar seed={doctor.photoSeed} name={doctor.name} size={72} />
+              <DoctorAvatar
+                seed={doctor.photoSeed}
+                name={doctor.name}
+                photo={doctor.photo}
+                size={72}
+              />
               <p className="mt-4 font-serif text-lg leading-tight">{doctor.name}</p>
               <p className="mt-1 text-xs text-charcoal-muted">{doctor.title}</p>
               <p className="mt-3 text-xs text-teal-dark">{doctor.mmcNumber}</p>
@@ -84,7 +89,12 @@ export default function DoctorsMarquee() {
               onClick={(e) => e.stopPropagation()}
               className="w-full max-w-lg rounded-2xl bg-bone p-8"
             >
-              <DoctorAvatar seed={selected.photoSeed} name={selected.name} size={88} />
+              <DoctorAvatar
+                seed={selected.photoSeed}
+                name={selected.name}
+                photo={selected.photo}
+                size={88}
+              />
               <h3 className="mt-5 font-serif text-2xl">{selected.name}</h3>
               <p className="mt-1 text-sm text-charcoal-muted">{selected.title}</p>
               <p className="mt-3 text-sm text-teal-dark">{selected.mmcNumber}</p>

@@ -31,7 +31,12 @@ export default function DoctorsPage() {
             href={`/doctors/${doctor.slug}`}
             className="rounded-2xl border border-charcoal/10 p-6 transition-shadow hover:shadow-md"
           >
-            <DoctorAvatar seed={doctor.photoSeed} name={doctor.name} size={72} />
+            <DoctorAvatar
+              seed={doctor.photoSeed}
+              name={doctor.name}
+              photo={doctor.photo}
+              size={72}
+            />
             <h2 className="mt-4 font-serif text-lg leading-tight">
               {doctor.name}
             </h2>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { doctors } from "@/lib/data/doctors";
@@ -50,7 +51,12 @@ export default function DoctorDetailPage({ params }: Props) {
       </Link>
 
       <div className="mt-8 grid gap-10 md:grid-cols-[auto_1fr] md:items-start">
-        <DoctorAvatar seed={doctor.photoSeed} name={doctor.name} size={140} />
+        <DoctorAvatar
+          seed={doctor.photoSeed}
+          name={doctor.name}
+          photo={doctor.photo}
+          size={140}
+        />
         <div>
           <h1 className="font-serif text-4xl">{doctor.name}</h1>
           <p className="mt-2 text-charcoal-muted">{doctor.title}</p>
@@ -102,6 +108,18 @@ export default function DoctorDetailPage({ params }: Props) {
           </Link>
         </div>
       </div>
+
+      {doctor.photoConsult && (
+        <div className="relative mt-16 h-72 w-full overflow-hidden rounded-2xl border border-charcoal/10 sm:h-96">
+          <Image
+            src={doctor.photoConsult}
+            alt={`${doctor.name} in consultation at ${site.clinicName}`}
+            fill
+            sizes="(min-width: 768px) 900px, 100vw"
+            className="object-cover"
+          />
+        </div>
+      )}
     </div>
   );
 }
