@@ -2,53 +2,59 @@
 
 import { useRef, useMemo, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { MeshDistortMaterial, Icosahedron } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
+const HERO_MODEL_URL = "/models/hero-organic.glb";
+
+// Commissioned abstract sculptural form (Draco-free, WebP-compressed
+// glTF, ~1MB) — replaces the earlier procedural MeshDistortMaterial
+// stand-in referenced in the README.
 function OrganicForm({ pointer }: { pointer: React.MutableRefObject<{ x: number; y: number }> }) {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const materialRef = useRef<any>(null);
+  const groupRef = useRef<THREE.Group>(null);
   const lerped = useRef({ x: 0, y: 0 });
+  const { scene } = useGLTF(HERO_MODEL_URL);
+
+  const model = useMemo(() => scene.clone(true), [scene]);
 
   useFrame((frame, delta) => {
-    if (!meshRef.current) return;
+    if (!groupRef.current) return;
 
-    meshRef.current.rotation.x += delta * 0.06;
-    meshRef.current.rotation.y += delta * 0.09;
+    groupRef.current.rotation.x += delta * 0.06;
+    groupRef.current.rotation.y += delta * 0.09;
 
     // Restrained, lerped cursor-reactive parallax.
     lerped.current.x += (pointer.current.x - lerped.current.x) * 0.04;
     lerped.current.y += (pointer.current.y - lerped.current.y) * 0.04;
 
-    meshRef.current.rotation.z = lerped.current.x * 0.15;
-    meshRef.current.position.x = lerped.current.x * 0.4;
-    meshRef.current.position.y = lerped.current.y * 0.25;
+    groupRef.current.rotation.z = lerped.current.x * 0.15;
+    groupRef.current.position.x = lerped.current.x * 0.4;
+    groupRef.current.position.y = lerped.current.y * 0.25;
   });
 
   useEffect(() => {
     return () => {
-      meshRef.current?.geometry.dispose();
-      if (Array.isArray(meshRef.current?.material)) {
-        meshRef.current?.material.forEach((m) => m.dispose());
-      } else {
-        (meshRef.current?.material as THREE.Material | undefined)?.dispose();
-      }
+      model.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          child.geometry.dispose();
+          if (Array.isArray(child.material)) {
+            child.material.forEach((m) => m.dispose());
+          } else {
+            child.material?.dispose();
+          }
+        }
+      });
     };
-  }, []);
+  }, [model]);
 
   return (
-    <Icosahedron ref={meshRef} args={[1.6, 12]}>
-      <MeshDistortMaterial
-        ref={materialRef}
-        color="#3C6E62"
-        roughness={0.25}
-        metalness={0.1}
-        distort={0.42}
-        speed={1.4}
-      />
-    </Icosahedron>
+    <group ref={groupRef} scale={2.1} position={[0, -0.3, 0]}>
+      <primitive object={model} />
+    </group>
   );
 }
+
+useGLTF.preload(HERO_MODEL_URL);
 
 function PointerTracker({
   pointer,

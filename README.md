@@ -60,10 +60,13 @@ is emitted in the root layout and `Physician` JSON-LD on each doctor page.
 
 ## Homepage motion spec — what was built
 
-- **Hero**: full-viewport R3F canvas, a distorted icosahedron
-  (`MeshDistortMaterial` from drei) standing in for a metaball/organic
-  form, restrained lerped cursor parallax, code-split via
-  `next/dynamic(..., { ssr: false })`.
+- **Hero**: full-viewport R3F canvas rendering a commissioned abstract
+  sculptural knot form (`public/models/hero-organic.glb`, WebP-textured
+  glTF, ~1MB — optimised from a 7.6MB source export via
+  `@gltf-transform/cli` resize + WebP recompression), restrained lerped
+  cursor parallax, code-split via `next/dynamic(..., { ssr: false })`.
+  Geometry/material disposal on unmount still applies, now via
+  `object.traverse()` over the loaded scene graph.
 - **Reduced-motion / low-end fallback**: `lib/hooks/useMotionCapability.ts`
   checks `prefers-reduced-motion` **and** `navigator.hardwareConcurrency < 4`
   and swaps to a static CSS gradient hero (`StaticHeroFallback.tsx`) —
@@ -131,10 +134,10 @@ wants a smoothed feel — it is currently unused.
 1. **Facilities teaser on the homepage** is a simplified scroll-parallax
    reveal rather than a full Spline-style camera path (the fuller 3D
    walkthrough was built on `/facilities` instead — see above).
-2. **No custom GLB/Draco assets** — all 3D geometry is procedural R3F
-   primitives (`Icosahedron`, `RoundedBox`, `Sphere`) rather than
-   modelled/exported assets, to avoid a binary asset pipeline for a
-   scaffold.
+2. **Facilities scene is still procedural R3F primitives** (`RoundedBox`,
+   `Sphere`, etc.) — only the homepage/hero form uses a real commissioned
+   GLB asset so far (see above). A matching modelled asset for the
+   `/facilities` walkthrough is a natural next commission.
 3. **No global smooth-scroll library** (see ScrollSmoother note above).
 4. **Doctor and before/after "photography"** is generated (CSS
    gradients + initials), not real or stock imagery, to keep the repo
